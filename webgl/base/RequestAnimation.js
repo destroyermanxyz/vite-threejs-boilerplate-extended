@@ -20,7 +20,7 @@ export default class Time extends EventTarget {
             }
         });
 
-        window.requestAnimationFrame(() => {
+        this.myReq = window.requestAnimationFrame(() => {
             this.tick();
         });
     }
@@ -35,6 +35,10 @@ export default class Time extends EventTarget {
         this.dispatchEvent(new Event("tick"));
 
         this.stats.end();
-        window.requestAnimationFrame(() => this.tick());
+        this.myReq = window.requestAnimationFrame(() => this.tick());
+    }
+
+    destroy() {
+        window.cancelAnimationFrame(this.myReq);
     }
 }

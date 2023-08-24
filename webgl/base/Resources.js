@@ -19,15 +19,19 @@ export default class Resources extends EventTarget {
     }
 
     setLoaders() {
+        this.manager = new THREE.LoadingManager();
+
         this.loaders = {};
-        this.loaders.gltfLoader = new GLTFLoader();
-        this.loaders.textureLoader = new THREE.TextureLoader();
-        this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader();
+        this.loaders.gltfLoader = new GLTFLoader(this.manager);
+        this.loaders.textureLoader = new THREE.TextureLoader(this.manager);
+        this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader(
+            this.manager
+        );
     }
 
     startLoading() {
         // Load each source
-        for (const source of this.sources) {
+        this.sources.forEach((source) => {
             if (source.type === "gltfModel") {
                 this.loaders.gltfLoader.load(source.path, (file) => {
                     this.sourceLoaded(source, file);
@@ -41,14 +45,10 @@ export default class Resources extends EventTarget {
                     this.sourceLoaded(source, file);
                 });
             }
-        }
-    }
-
-    sourceLoaded(source, file) {
-        this.items[source.name] = file;
+        });
 
         this.manager.onLoad = () => {
-            this.dispatchEvent(new Event("loaded"));
+            this.dispatchEvent(new Event("resourcesLoaded"));
         };
 
         this.manager.onProgress = function (url, itemsLoaded, itemsTotal) {
@@ -57,5 +57,9 @@ export default class Resources extends EventTarget {
             document.querySelector(".loader").innerHTML = progressState + "%";
             // console.log(progressState);
         };
+    }
+
+    sourceLoaded(source, file) {
+        this.items[source.name] = file;
     }
 }

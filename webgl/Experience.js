@@ -21,25 +21,22 @@ export default class Experience {
         this.renderer = new Renderer();
         this.world = new World();
 
-        window.addEventListener("resize", () => this.resize());
-        this.requestAnimation.addEventListener("tick", () => this.update());
+        this.resizeHandler = this.resize.bind(this);
+        window.addEventListener("resize", this.resizeHandler);
 
-        this.destroyed = false;
+        this.updateHandler = this.update.bind(this);
+        this.requestAnimation.addEventListener("tick", this.updateHandler);
     }
 
     resize() {
-        if (!this.destroyed) {
-            this.camera.resize();
-            this.renderer.resize();
-        }
+        this.camera.resize();
+        this.renderer.resize();
     }
 
     update() {
-        if (!this.destroyed) {
-            this.camera.update();
-            this.world.update();
-            this.renderer.update();
-        }
+        this.camera.update();
+        this.world.update();
+        this.renderer.update();
     }
 
     destroy() {
@@ -58,14 +55,20 @@ export default class Experience {
         });
 
         for (let i = this.scene.children.length - 1; i >= 0; i--) {
-            this.scene2.remove(this.scene.children[i]);
+            this.scene.remove(this.scene.children[i]);
         }
 
-        this.camera.controls.dispose();
-        this.renderer.instance.dispose();
+        if (this.camera.controls) {
+            this.camera.controls.dispose();
+        }
+        if (this.renderer.instance) {
+            this.renderer.instance.dispose();
+        }
+        if (this.debug.active) {
+            this.debug.ui.destroy();
+        }
 
-        if (this.debug.active) this.debug.ui.destroy();
-
-        this.destroyed = true;
+        window.removeEventListener("resize", this.resizeHandler);
+        this.requestAnimation.destroy();
     }
 }

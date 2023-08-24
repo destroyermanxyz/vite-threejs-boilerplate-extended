@@ -8,7 +8,7 @@ export default class World {
         this.plane = new Plane();
 
         // Wait for resources
-        this.resources.addEventListener("loaded", () => {});
+        this.resources.addEventListener("resourcesLoaded", () => {});
     }
 
     update() {
