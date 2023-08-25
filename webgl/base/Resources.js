@@ -48,13 +48,15 @@ export default class Resources extends EventTarget {
         });
 
         this.manager.onLoad = () => {
-            this.dispatchEvent(new Event("resourcesLoaded"));
+            this.dispatchEvent(
+                new CustomEvent("resourcesLoaded", { detail: this.items })
+            );
         };
 
         this.manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-            let progressState = itemsLoaded / itemsTotal;
-            progressState = Math.round(progressState * 100);
-            document.querySelector(".loader").innerHTML = progressState + "%";
+            // let progressState = itemsLoaded / itemsTotal;
+            // progressState = Math.round(progressState * 100);
+            // document.querySelector(".loader").innerHTML = progressState + "%";
             // console.log(progressState);
         };
     }
