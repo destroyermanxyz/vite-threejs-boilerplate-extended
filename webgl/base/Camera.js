@@ -19,6 +19,11 @@ export default class Camera {
             100
         );
         this.instance.position.set(0, 0, 1);
+
+        this.vFov = THREE.MathUtils.degToRad(this.instance.fov);
+        this.viewportHeight =
+            2 * Math.tan(this.vFov / 2) * this.instance.position.z;
+        this.viewportWidth = this.viewportHeight * this.instance.aspect;
     }
 
     setControls() {
@@ -29,6 +34,11 @@ export default class Camera {
     resize() {
         this.instance.aspect = window.innerWidth / window.innerHeight;
         this.instance.updateProjectionMatrix();
+
+        this.vFov = THREE.MathUtils.degToRad(this.instance.fov);
+        this.viewportHeight =
+            2 * Math.tan(this.vFov / 2) * this.instance.position.z;
+        this.viewportWidth = this.viewportHeight * this.instance.aspect;
     }
 
     update() {
