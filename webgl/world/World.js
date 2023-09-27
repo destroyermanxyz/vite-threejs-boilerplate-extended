@@ -5,6 +5,7 @@ export default class World {
         this.experience = window.experience;
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
+        this.experience.world = this;
         this.plane = new Plane();
 
         // Wait for resources
