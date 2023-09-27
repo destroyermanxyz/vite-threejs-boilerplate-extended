@@ -13,7 +13,11 @@ export default class World {
         });
     }
 
+    resize() {}
+
     update() {
         this.plane.update();
     }
+
+    destroy() {}
 }

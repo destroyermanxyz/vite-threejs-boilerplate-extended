@@ -31,6 +31,7 @@ export default class Experience {
     resize() {
         this.camera.resize();
         this.renderer.resize();
+        this.world.resize();
     }
 
     update() {
@@ -70,5 +71,6 @@ export default class Experience {
 
         window.removeEventListener("resize", this.resizeHandler);
         this.requestAnimation.destroy();
+        this.world.destroy();
     }
 }
