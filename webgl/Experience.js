@@ -21,11 +21,11 @@ export default class Experience {
         this.renderer = new Renderer();
         this.world = new World();
 
-        this.resizeHandler = this.resize.bind(this);
-        window.addEventListener("resize", this.resizeHandler);
+        this.resize = this.resize.bind(this);
+        window.addEventListener("resize", this.resize);
 
-        this.updateHandler = this.update.bind(this);
-        this.requestAnimation.addEventListener("tick", this.updateHandler);
+        this.update = this.update.bind(this);
+        this.requestAnimation.addEventListener("tick", this.update);
     }
 
     resize() {
@@ -69,7 +69,7 @@ export default class Experience {
             this.debug.ui.destroy();
         }
 
-        window.removeEventListener("resize", this.resizeHandler);
+        window.removeEventListener("resize", this.resize);
         this.requestAnimation.destroy();
         this.world.destroy();
     }
