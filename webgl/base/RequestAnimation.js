@@ -23,8 +23,6 @@ export default class Time extends EventTarget {
 
         this.dispatchEvent(new Event("tick"));
 
-        console.log("tick");
-
         this.stats.end();
         this.myReq = requestAnimationFrame(this.tick);
     }

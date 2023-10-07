@@ -9,11 +9,10 @@ export default class Plane {
         this.requestAnimation = this.experience.requestAnimation;
 
         this.setInstance();
-        this.update();
     }
     setInstance() {
         this.instance = new THREE.Mesh(
-            new THREE.PlaneGeometry(1, 1, 1, 1),
+            new THREE.BoxGeometry(1, 1, 1),
             new THREE.ShaderMaterial({
                 vertexShader: vertex,
                 fragmentShader: fragment,
@@ -32,5 +31,7 @@ export default class Plane {
     update() {
         this.instance.material.uniforms.uTime.value =
             this.requestAnimation.elapsedTime;
+
+        this.instance.rotation.y += this.requestAnimation.deltaTime;
     }
 }

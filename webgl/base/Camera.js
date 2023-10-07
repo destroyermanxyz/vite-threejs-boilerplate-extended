@@ -18,7 +18,7 @@ export default class Camera {
             0.1,
             100
         );
-        this.instance.position.set(0, 0, 1);
+        this.instance.position.set(0, 1, 2);
 
         this.vFov = THREE.MathUtils.degToRad(this.instance.fov);
         this.viewportHeight =

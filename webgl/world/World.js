@@ -1,4 +1,4 @@
-import Plane from "./Plane";
+import Box from "./Box";
 
 export default class World {
     constructor() {
@@ -6,7 +6,7 @@ export default class World {
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
         this.experience.world = this;
-        this.plane = new Plane();
+        this.box = new Box();
 
         // Wait for resources
         this.resources.addEventListener("resourcesLoaded", (e) => {
@@ -17,7 +17,7 @@ export default class World {
     resize() {}
 
     update() {
-        this.plane.update();
+        this.box.update();
     }
 
     destroy() {}
