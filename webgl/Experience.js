@@ -13,13 +13,13 @@ export default class Experience {
 
         this.canvas = canvas;
 
-        this.debug = new Debug();
         this.scene = new THREE.Scene();
         this.requestAnimation = new RequestAnimation();
         this.resources = new Resources();
         this.camera = new Camera();
         this.renderer = new Renderer();
         this.world = new World();
+        this.debug = new Debug();
 
         this.resize = this.resize.bind(this);
         window.addEventListener("resize", this.resize);
