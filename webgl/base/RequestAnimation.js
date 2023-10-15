@@ -1,4 +1,4 @@
-import Stats from "stats.js";
+import Stats from "../../Stats";
 
 export default class Time extends EventTarget {
     constructor() {
