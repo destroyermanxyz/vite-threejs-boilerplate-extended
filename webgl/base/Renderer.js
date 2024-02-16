@@ -18,6 +18,8 @@ export default class Renderer {
         this.instance.setSize(window.innerWidth, window.innerHeight);
         this.instance.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.instance.setClearColor("black");
+        this.instance.toneMapping = THREE.ACESFilmicToneMapping;
+        this.instance.toneMappingExposure = 1;
     }
 
     resize() {
